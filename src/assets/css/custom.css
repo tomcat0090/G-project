@@ -1,0 +1,21 @@
+#credit > li{
+	padding: 20px;
+}
+
+.space{
+	height: 300px;
+}
+
+body, #main {
+	/*background-color:#ECF7E1;*/
+	background-image : url('../img/f92.png');
+}
+
+@media screen and (max-width: 767px) {
+	.column {
+		overflow: visible;
+	}
+	#main {
+		background-image : none;
+	}
+}

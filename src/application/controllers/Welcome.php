@@ -58,6 +58,13 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+	public function test()
+	{
+		$this->load->helper('form');
+		$this->load->view('non_login/header');
+		$this->load->view('non_login/top_view');
+		$this->load->view('non_login/footer');
+	}
 }
 
 /* End of file welcome.php */

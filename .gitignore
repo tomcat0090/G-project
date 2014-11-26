@@ -1,3 +1,4 @@
+/src/application/logs/*
 /src/application/config/*
 */config/development
 */logs/log-*.php
