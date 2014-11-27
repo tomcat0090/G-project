@@ -5,11 +5,11 @@
 <div class="column col-sm-3" id="sidebar">
 	<a class="logo" href="#">G</a>
 	<ul class="nav">
-		<li class="active">
-			<a href="#newgame">NewGame</a>
-		</li>
 		<li>
 			<a href="#login">Login</a>
+		</li>
+		<li>
+			<a href="#newgame">NewGame</a>
 		</li>
 		<li>
 			<a href="#credit">Credit</a>
@@ -25,18 +25,61 @@
 
 							<!-- content -->
 
-							<div class="col-sm-12" id="newgame">
+							<!-- login -->
+							<div class="col-sm-12" id="login">
 								<div class="page-header text-muted">
-								NewGame
+								Login
 								</div>
 							</div>
 
-							<!--/top story-->
 							<div class="row">
-								<div class="col-sm-10">
+								<div class="col-lg-6 col-md-8">
+
+									<?php echo form_open('Welcome/login', array('class' => "form-horizontal")); ?>
+
+									<div class="control-group">
+										<?php echo form_label('E-Mail / Username', 'username_or_email', array('class'=>'control-label', 'for'=>'username_or_email')); ?>
+										<div class="controls">
+											<?php echo form_input('username_or_email', $this->input->post('username_or_email')); ?>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<?php echo form_label('Password', 'password', array('class'=>'control-label', 'for'=>'password')); ?>
+										<div class="controls">
+											<?php echo form_password('password'); ?>
+										</div>
+									</div>
+
+									<div class="control-group">
+										<div class="controls">
+											<label class="checkbox">
+												<?php echo form_checkbox('remember_me', true); ?> Remember me
+											</label>
+										</div>
+									</div>
+
+									<div>
+										<span class="btn btn-caps btn-middle"> 
+											<?php echo form_submit(array('value'=>'Login', 'name'=>'submit', 'class' => 'btn btn-caps')); ?>
+										</span>
+											<?php echo anchor('users/forgot', '<span class="btn btn-gray">Forgot Password</span>', array('class' =>'link-reset btn btn-middle btn-gray')); ?>
+									</div>
+									<?php echo form_close(); ?>
+								</div>
+							</div>
+							<!-- /login -->
+
+							<!-- new game -->
+							<div class="col-sm-12" id="newgame">
+								<div class="page-header text-muted">
+									NewGame
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-6 col-md-8">
 										<?php echo form_open('Welcome/register', array('class' => "form-inline form-horizontal")); ?>
-
-
 
 										<div class="control-group">
 											<?php echo form_label('Username', 'username'); ?>
@@ -70,51 +113,7 @@
 								</div>
 							</div>
 
-							<div class="col-sm-12" id="login">
-								<div class="page-header text-muted">
-								Login
-								</div>
-							</div>
-
-
-							<!--/stories-->
-							<div class="row">
-
-								<?php echo form_open('Welcome/login', array('class' => "form-horizontal")); ?>
-
-								<div class="control-group">
-									<?php echo form_label('E-Mail / Username', 'username_or_email', array('class'=>'control-label', 'for'=>'username_or_email')); ?>
-									<div class="controls">
-										<?php echo form_input('username_or_email', $this->input->post('username_or_email')); ?>
-									</div>
-								</div>
-
-								<div class="control-group">
-									<?php echo form_label('Password', 'password', array('class'=>'control-label', 'for'=>'password')); ?>
-									<div class="controls">
-										<?php echo form_password('password'); ?>
-									</div>
-								</div>
-
-								<div class="control-group">
-									<div class="controls">
-										<label class="checkbox">
-											<?php echo form_checkbox('remember_me', true); ?> Remember me
-										</label>
-									</div>
-								</div>
-
-								<div>
-									<span class="btn btn-caps btn-middle"> 
-										<?php echo form_submit(array('value'=>'Login', 'name'=>'submit', 'class' => 'btn btn-caps')); ?>
-									</span>
-										<?php echo anchor('users/forgot', '<span class="btn btn-gray">Forgot Password</span>', array('class' =>'link-reset btn btn-middle btn-gray')); ?>
-								</div>
-								<?php echo form_close(); ?>
-							</div>
-
-
-
+							<!-- /new game -->
 
 							<hr>
 
