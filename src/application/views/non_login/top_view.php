@@ -35,12 +35,13 @@
 							<div class="row">
 								<div class="col-lg-6 col-md-8">
 
-									<?php echo form_open('Welcome/login', array('class' => "form-horizontal")); ?>
+									<?php echo form_open('index/login', array('class' => "form-horizontal")); ?>
+									<div id="infoMessage"><?php echo $message;?></div>
 
 									<div class="control-group">
-										<?php echo form_label('E-Mail / Username', 'username_or_email', array('class'=>'control-label', 'for'=>'username_or_email')); ?>
+										<?php echo form_label('E-Mail / Username', 'identity', array('class'=>'control-label', 'for'=>'identityl')); ?>
 										<div class="controls">
-											<?php echo form_input('username_or_email', $this->input->post('username_or_email')); ?>
+											<?php echo form_input('identity', $this->input->post('identity')); ?>
 										</div>
 									</div>
 
@@ -79,7 +80,7 @@
 
 							<div class="row">
 								<div class="col-lg-6 col-md-8">
-										<?php echo form_open('Welcome/register', array('class' => "form-inline form-horizontal")); ?>
+										<?php echo form_open('index/register', array('class' => "form-inline form-horizontal")); ?>
 
 										<div class="control-group">
 											<?php echo form_label('Username', 'username'); ?>

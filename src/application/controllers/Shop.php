@@ -37,7 +37,7 @@
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Index extends CI_Controller {
+class Shop extends CI_Controller {
 
 	/**
 	 * Index Page for this controller.
@@ -61,68 +61,19 @@ class Index extends CI_Controller {
 		parent::__construct();
 		$this->data['message'] = '';
 		$this->load->library('ion_auth');
-		$this->load->library('form_validation');
+		if (!$this->ion_auth->logged_in())
+		{
+			//redirect them to the login page
+			redirect('index/login', 'refresh');
+		}
 	}
 
 
 	public function index()
 	{
-		$this->load->helper('form');
-		$this->load->view('non_login/header');
-		$this->load->view('non_login/top_view', $this->data);
-		$this->load->view('non_login/footer');
-	}
-
-	//log the user in
-	function login()
-	{
-		$this->data['title'] = "Login";
-
-		//validate form input
-		$this->form_validation->set_rules('identity', 'Identity', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-
-		if ($this->form_validation->run() == true)
-		{
-			//check to see if the user is logging in
-			//check for "remember me"
-			$remember = (bool) $this->input->post('remember');
-
-			if ($this->ion_auth->login($this->input->post('identity'), $this->input->post('password'), $remember))
-			{
-				//if the login is successful
-				//redirect them back to the home page
-				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect('shop', 'refresh');
-			}
-			else
-			{
-				//if the login was un-successful
-				//redirect them back to the login page
-				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('index/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
-			}
-		}
-		else
-		{
-			//the user is not logging in so display the login page
-			//set the flash data error message if there is one
-			$this->data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
-
-			$this->data['identity'] = array('name' => 'identity',
-				'id' => 'identity',
-				'type' => 'text',
-				'value' => $this->form_validation->set_value('identity'),
-			);
-			$this->data['password'] = array('name' => 'password',
-				'id' => 'password',
-				'type' => 'password',
-			);
-
-			$this->index();
-		}
+		echo 'nya';
 	}
 }
 
-/* End of file Index.php */
-/* Location: ./application/controllers/Index.php */
+/* End of file Shop.php */
+/* Location: ./application/controllers/Shop.php */
