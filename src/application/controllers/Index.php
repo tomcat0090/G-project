@@ -26,13 +26,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  *
- * @package	CodeIgniter
- * @author	EllisLab Dev Team
- * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014, British Columbia Institute of Technology (http://bcit.ca/)
- * @license	http://opensource.org/licenses/MIT	MIT License
- * @link	http://codeigniter.com
- * @since	Version 1.0.0
+ * @package CodeIgniter
+ * @author  EllisLab Dev Team
+ * @copyright Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
+ * @copyright Copyright (c) 2014, British Columbia Institute of Technology (http://bcit.ca/)
+ * @license http://opensource.org/licenses/MIT MIT License
+ * @link http://codeigniter.com
+ * @since Version 1.0.0
  * @filesource
  */
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -43,10 +43,10 @@ class Index extends CI_Controller {
 	 * Index Page for this controller.
 	 *
 	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
+	 *    http://example.com/index.php/welcome
+	 *  - or -
+	 *    http://example.com/index.php/welcome/index
+	 *  - or -
 	 * Since this controller is set as the default controller in
 	 * config/routes.php, it's displayed at http://example.com/
 	 *
@@ -117,6 +117,60 @@ class Index extends CI_Controller {
 			$this->data['password'] = array('name' => 'password',
 				'id' => 'password',
 				'type' => 'password',
+			);
+
+			$this->index();
+		}
+	}
+
+	function register()
+	{
+		$this->data['title'] = "Register";
+
+		$tables = $this->config->item('tables','ion_auth');
+
+		//validate form input
+		$this->form_validation->set_rules('username', $this->lang->line('forgot_password_username_identity_label'), 'required|is_unique['.$tables['users'].'.username]');
+		$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email|is_unique['.$tables['users'].'.email]');
+		$this->form_validation->set_rules('password', $this->lang->line('create_user_validation_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']');
+
+		if ($this->form_validation->run() == true)
+		{
+			$username = strtolower($this->input->post('identity'));
+			$email    = strtolower($this->input->post('email'));
+			$password = $this->input->post('password');
+
+		}
+		if ($this->form_validation->run() == true && $this->ion_auth->register($username, $password, $email))
+		{
+			//check to see if we are creating the user
+			//redirect them back to the admin page
+			$this->session->set_flashdata('message', $this->ion_auth->messages());
+			redirect('shop', 'refresh');
+		}
+		else
+		{
+			//display the create user form
+			//set the flash data error message if there is one
+			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
+
+			$this->data['identity'] = array(
+				'name'  => 'identity',
+				'id'    => 'identity',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('identity'),
+			);
+			$this->data['email'] = array(
+				'name'  => 'email',
+				'id'    => 'email',
+				'type'  => 'text',
+				'value' => $this->form_validation->set_value('email'),
+			);
+			$this->data['password'] = array(
+				'name'  => 'password',
+				'id'    => 'password',
+				'type'  => 'password',
+				'value' => $this->form_validation->set_value('password'),
 			);
 
 			$this->index();
