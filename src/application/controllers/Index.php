@@ -136,7 +136,7 @@ class Index extends CI_Controller {
 
 		if ($this->form_validation->run() == true)
 		{
-			$username = strtolower($this->input->post('identity'));
+			$username = strtolower($this->input->post('username'));
 			$email    = strtolower($this->input->post('email'));
 			$password = $this->input->post('password');
 
@@ -154,11 +154,11 @@ class Index extends CI_Controller {
 			//set the flash data error message if there is one
 			$this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
-			$this->data['identity'] = array(
-				'name'  => 'identity',
-				'id'    => 'identity',
+			$this->data['username'] = array(
+				'name'  => 'username',
+				'id'    => 'username',
 				'type'  => 'text',
-				'value' => $this->form_validation->set_value('identity'),
+				'value' => $this->form_validation->set_value('username'),
 			);
 			$this->data['email'] = array(
 				'name'  => 'email',
