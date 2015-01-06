@@ -55,6 +55,7 @@ class Shop extends CI_Controller {
 	 * @see http://codeigniter.com/user_guide/general/urls.html
 	 */
 	public $data;
+	public $view_path = 'user/shop/';
 
 	function __construct()
 	{
@@ -66,12 +67,14 @@ class Shop extends CI_Controller {
 			//redirect them to the login page
 			redirect('index/login', 'refresh');
 		}
+		$this->data['title'] = 'Shop';
 	}
 
 
 	public function index()
 	{
-		echo 'nya';
+		$this->data['template'] = 'login';
+		$this->load->view($this->view_path . 'index', $this->data);
 	}
 }
 
