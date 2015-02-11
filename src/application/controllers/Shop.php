@@ -73,8 +73,8 @@ class Shop extends CI_Controller {
 
 	public function index()
 	{
-		$this->data['template'] = 'login';
-		$this->load->view($this->view_path . 'index', $this->data);
+		$this->data['templates_path'] = base_url() . 'templates/login';
+		$this->load->view('../../templates/login/index', $this->data);
 	}
 }
 
