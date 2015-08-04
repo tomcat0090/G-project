@@ -2,11 +2,11 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.2.4 or newer
+ * An open source application development framework for PHP
  *
  * This content is released under the MIT License (MIT)
  *
- * Copyright (c) 2014, British Columbia Institute of Technology
+ * Copyright (c) 2014 - 2015, British Columbia Institute of Technology
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@
  * @package	CodeIgniter
  * @author	EllisLab Dev Team
  * @copyright	Copyright (c) 2008 - 2014, EllisLab, Inc. (http://ellislab.com/)
- * @copyright	Copyright (c) 2014, British Columbia Institute of Technology (http://bcit.ca/)
+ * @copyright	Copyright (c) 2014 - 2015, British Columbia Institute of Technology (http://bcit.ca/)
  * @license	http://opensource.org/licenses/MIT	MIT License
  * @link	http://codeigniter.com
  * @since	Version 1.0.0
@@ -299,6 +299,13 @@ class CI_Pagination {
 	protected $reuse_query_string = FALSE;
 
 	/**
+	 * Use global URL suffix flag
+	 *
+	 * @var	bool
+	 */
+	protected $use_global_url_suffix = FALSE;
+
+	/**
 	 * Data page attribute
 	 *
 	 * @var	string
@@ -333,7 +340,7 @@ class CI_Pagination {
 		}
 
 		$this->initialize($params);
-		log_message('debug', 'Pagination Class Initialized');
+		log_message('info', 'Pagination Class Initialized');
 	}
 
 	// --------------------------------------------------------------------
@@ -346,7 +353,8 @@ class CI_Pagination {
 	 */
 	public function initialize(array $params = array())
 	{
-		if (isset($params['attributes']) && is_array($params['attributes']))
+		isset($params['attributes']) OR $params['attributes'] = array();
+		if (is_array($params['attributes']))
 		{
 			$this->_parse_attributes($params['attributes']);
 			unset($params['attributes']);
@@ -371,6 +379,11 @@ class CI_Pagination {
 		if ($this->CI->config->item('enable_query_strings') === TRUE)
 		{
 			$this->page_query_string = TRUE;
+		}
+
+		if ($this->use_global_url_suffix === TRUE)
+		{
+			$this->suffix = $this->CI->config->item('url_suffix');
 		}
 
 		return $this;
@@ -632,7 +645,7 @@ class CI_Pagination {
 
 		// Kill double slashes. Note: Sometimes we can end up with a double slash
 		// in the penultimate link so we'll kill all double slashes.
-		$output = preg_replace('#([^:])//+#', '\\1/', $output);
+		$output = preg_replace('#([^:"])//+#', '\\1/', $output);
 
 		// Add the wrapper HTML if exists
 		return $this->full_tag_open.$output.$this->full_tag_close;
@@ -682,6 +695,3 @@ class CI_Pagination {
 	}
 
 }
-
-/* End of file Pagination.php */
-/* Location: ./system/libraries/Pagination.php */

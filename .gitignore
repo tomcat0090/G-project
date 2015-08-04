@@ -1,5 +1,7 @@
 /src/application/logs/*
-/src/application/config/*
+/src/application/config/development/*
+/src/application/config/production/*
+/src/application/config/testing/*
 */config/development
 */logs/log-*.php
 */logs/!index.html
