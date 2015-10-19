@@ -1,0 +1,33 @@
+#sidebar-left, .navbar-inner, footer {
+  background-color: transparent;
+  background-image: none;
+background-color: rgba(58,58,58,0.3);
+}
+#sidebar-left {
+}
+body {
+background-image: url("http://127.0.0.1/g-project/src/assets/css/../img/8442008652_323624c154_k.jpg");
+background-color: rgba(58,58,58,0.5);
+background-repeat: no-repeat;
+background-attachment: fixed;
+background-position: left top;
+}
+#content {
+  background-color: #f5e1a4;
+background-image: url("http://www.transparenttextures.com/patterns/natural-paper.png");
+}
+
+div.span1,
+div.span2,
+div.span3,
+div.span4,
+div.span5,
+div.span6,
+div.span7,
+div.span8,
+div.span9,
+div.span10,
+div.span11,
+div.span12 {
+	background-image: url("http://www.transparenttextures.com/patterns/paper-fibers.png");
+}
