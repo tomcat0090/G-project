@@ -39,21 +39,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Shop extends CI_Controller {
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see http://codeigniter.com/user_guide/general/urls.html
-	 */
 	public $data;
 	public $view_path = 'user/shop/';
 
@@ -61,20 +46,22 @@ class Shop extends CI_Controller {
 	{
 		parent::__construct();
 		$this->data['message'] = '';
-		$this->load->library('ion_auth');
+		$this->load->library(['ion_auth', 'user_lib']);
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
 			redirect('index/login', 'refresh');
 		}
-		$this->data['title'] = 'Shop';
+		$this->user_lib->init($this->ion_auth->get_user_id());
+		$this->load->model('settings_model');
+		$this->data['templates_path'] = base_url()  . 'templates/'. $this->settings_model->get('templates_path') . '/';
+		$this->data['title']         = $this->settings_model->get('title');
 	}
 
 
 	public function index()
 	{
-		$this->data['templates_path'] = base_url() . 'templates/login';
-		$this->load->view('../../templates/login/index', $this->data);
+		$this->load->view('shop/index', $this->data);
 	}
 }
 
